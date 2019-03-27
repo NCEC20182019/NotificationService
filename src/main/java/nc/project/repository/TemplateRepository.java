@@ -1,9 +1,9 @@
 package nc.project.repository;
 
-import nc.project.model.User;
+import nc.project.model.Template;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface UserRepository extends CrudRepository<User, Integer> {
+public interface TemplateRepository extends CrudRepository<Template, Integer > {
 }

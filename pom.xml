@@ -8,10 +8,7 @@
     <artifactId>NotificationService</artifactId>
     <version>1.0</version>
     <properties>
-        <postgres.driver.version>42.2.5</postgres.driver.version>
-        <database.url>jdbc:postgresql://localhost:5432/notificationDB</database.url>
-        <database.user>artem_sglv</database.user>
-        <database.password/>
+        <java.version>1.8</java.version>
     </properties>
 
     <parent>
@@ -27,6 +24,12 @@
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-mail</artifactId>
+        </dependency>
+
+        <!-- Database -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-jpa</artifactId>
             <version>2.1.2.RELEASE</version>
         </dependency>
@@ -35,19 +38,22 @@
             <artifactId>postgresql</artifactId>
             <version>42.2.5</version>
         </dependency>
+        <dependency>
+            <groupId>org.flywaydb</groupId>
+            <artifactId>flyway-core</artifactId>
+        </dependency>
 
+        <!-- Utilities -->
         <dependency>
             <groupId>io.springfox</groupId>
             <artifactId>springfox-swagger2</artifactId>
             <version>2.9.2</version>
         </dependency>
-
         <dependency>
             <groupId>io.springfox</groupId>
             <artifactId>springfox-swagger-ui</artifactId>
             <version>2.9.2</version>
         </dependency>
-
         <dependency>
             <groupId>org.modelmapper</groupId>
             <artifactId>modelmapper</artifactId>
@@ -58,14 +64,15 @@
             <artifactId>lombok</artifactId>
         </dependency>
 
-        <!--<dependency>-->
-            <!--<groupId>org.springframework</groupId>-->
-            <!--<artifactId>spring-context-support</artifactId>-->
-            <!--<version>5.1.5.RELEASE</version>-->
-        <!--</dependency>-->
+        <!-- Reactive modules-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-mail</artifactId>
+            <artifactId>spring-boot-starter-webflux</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.projectreactor</groupId>
+            <artifactId>reactor-spring</artifactId>
+            <version>1.0.1.RELEASE</version>
         </dependency>
     </dependencies>
 
@@ -74,28 +81,6 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <configuration>
-                    <source>1.8</source>
-                    <target>1.8</target>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.flywaydb</groupId>
-                <artifactId>flyway-maven-plugin</artifactId>
-                <version>5.2.4</version>
-                <configuration>
-                    <sqlMigrationSeparator>__</sqlMigrationSeparator>
-                    <locations>
-                        <location>filesystem:src/main/resources/db/migrations</location>
-                    </locations>
-                    <url>${database.url}</url>
-                    <user>${database.user}</user>
-                    <password>${database.password}</password>
-                </configuration>
             </plugin>
         </plugins>
     </build>
