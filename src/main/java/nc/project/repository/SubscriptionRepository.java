@@ -24,3 +24,4 @@ public interface SubscriptionRepository extends CrudRepository<Subscription, Int
 //    @Query("select s.user_id from subscriptions s where s.id = :id and s.user_id = :userId")
 //    List<Integer> findAllByIdAndUserId(@Param("id")int id, @Param("userId")int userId);
 }
+//vscale.io
