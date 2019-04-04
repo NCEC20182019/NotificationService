@@ -6,15 +6,18 @@ import lombok.Data;
 public class Notification {
     private int id;
     private Template message;
+    private String username;
+    private String subscriptionName;
 
-    public Notification(String username, String subsName)
+    public Notification(String username, String subsName, Template message)
     {
-        message.setUsername(username);
-        message.setSubscriptionName(subsName);
+        this.message = message;
+        this.username = username;
+        this.subscriptionName = subsName;
     }
 
     public String getMessage() {
-        return message.toString();
+        return String.format(message.getText(), username, subscriptionName);
     }
     public String getMessageSubject(){
         return message.getSubject();

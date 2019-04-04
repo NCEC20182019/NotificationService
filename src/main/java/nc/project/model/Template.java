@@ -19,13 +19,4 @@ public class Template {
     private int id;
     private String text;
     private String subject;
-    @Transient
-    private String username;
-    @Transient
-    private String subscriptionName;
-
-    @Override
-    public String toString() {
-        return String.format(text, username, subscriptionName);
-    }
 }

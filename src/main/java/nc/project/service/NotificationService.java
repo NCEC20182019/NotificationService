@@ -10,6 +10,7 @@ import nc.project.model.User;
 import nc.project.model.dto.SubscriptionDTO;
 import nc.project.model.dto.TriggerDTO;
 import nc.project.repository.SubscriptionRepository;
+import nc.project.repository.TemplateRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
@@ -22,12 +23,14 @@ public class NotificationService {
 
     private final SubscriptionRepository subscriptionRepository;
     private final UserService userService;
+    private final TemplateRepository templateRepository;
     private NotificationSender notificationSender = null;
     private Queue<Subscription> subscriptionsToNotify;
 
     @Autowired
-    public NotificationService(SubscriptionRepository subscriptionRepository, UserService userService) {
+    public NotificationService(SubscriptionRepository subscriptionRepository, UserService userService, TemplateRepository templateRepository ) {
         this.subscriptionRepository = subscriptionRepository;
+        this.templateRepository = templateRepository;
         this.userService = userService;
         this.subscriptionsToNotify = new PriorityQueue<>();
     }
@@ -83,11 +86,11 @@ public class NotificationService {
     private void notifyUsers() {
         while (!subscriptionsToNotify.isEmpty()) {
             Subscription sub = subscriptionsToNotify.poll();
-            Mono<User> m = userService.getUser(sub.getUserId());
-            m.subscribe(user -> {
+            User user = userService.getUser(sub.getUserId()).block();
+            if(user != null){
                 notificationSender = userService.getSender(user);
-                notificationSender.send(user, new Notification(user.getName(), sub.getName()));
-            }, error -> System.err.println(error.getMessage()));
+                notificationSender.send(user, new Notification(user.getName(), sub.getName(), templateRepository.getTemplateById(1)));
+            }
         }
     }
 }

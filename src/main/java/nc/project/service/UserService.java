@@ -31,19 +31,19 @@ public class UserService {
     }
 
     public Mono<User> getUser(int id){
-        User user = new User();
-        user.setId(id);
-        user.setName("Artem");
-        user.setEmail("stiw00@bk.ru");
-        user.setNotificationChannel(PreferredNotificationChannel.EMAIL);
+//        User user = new User();
+//        user.setId(id);
+//        user.setName("Artem");
+//        user.setEmail("mail@mail.ru");
+//        user.setNotificationChannel(PreferredNotificationChannel.EMAIL);
 
-        return Mono.just(user);
+//        return Mono.just(user);
 
-//        return WebClient.create().get()
-//                .uri(serviceUrl + "/" + id)
-//                .accept(MediaType.APPLICATION_JSON)
-//                .retrieve()
-//                .bodyToMono(User.class);
+        return WebClient.create().get()
+                .uri(serviceUrl + "/" + id)
+                .accept(MediaType.APPLICATION_JSON)
+                .retrieve()
+                .bodyToMono(User.class);
     }
 
     public Flux<User> getUsers(List<Integer> ids){
