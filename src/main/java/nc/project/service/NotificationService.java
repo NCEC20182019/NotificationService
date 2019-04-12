@@ -85,11 +85,11 @@ public class NotificationService {
     private void notifyUsers() {
         while (!subscriptionsToNotify.isEmpty()) {
             Subscription sub = subscriptionsToNotify.poll();
-            Mono<User> m = userService.getUser(sub.getUserId());
-            m.subscribe(user -> {
+            User user = userService.getUser(sub.getUserId()).block();
+            if(user != null){
                 notificationSender = userService.getSender(user);
                 notificationSender.send(user, messageService.createMessage(user.getName(), sub.getName()));
-            }, error -> System.err.println(error.getMessage()));
+            }
         }
     }
 }
