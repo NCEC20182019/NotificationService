@@ -1,6 +1,6 @@
 package nc.project.NotificationSender;
 
-import nc.project.model.Notification;
+import nc.project.model.Message;
 import nc.project.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -20,15 +20,13 @@ public class EmailSender implements NotificationSender{
         this.mailSender = mailSender;
     }
 
-    public void send(User user, Notification notification){
+    public void send(User user, Message message){
         SimpleMailMessage mailMessage = new SimpleMailMessage();
 
         mailMessage.setFrom(username);
         mailMessage.setTo(user.getEmail());
-        //TODO тема должна генериться в зависимости от типа нотификации (создание, изменени, наступление события и тд)
-        // и хранится в шаблоне
-        mailMessage.setSubject(notification.getMessageSubject());
-        mailMessage.setText(notification.getMessage());
+        mailMessage.setSubject(message.getSubject());
+        mailMessage.setText(message.getText());
 
         mailSender.send(mailMessage);
     }

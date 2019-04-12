@@ -9,4 +9,4 @@ values ('event','sub3', true, 1, 1);
 insert into subscriptions (sub_type, name, enabled, user_id, type)
 values ('type','sub4', true, 1, 'cinema');
 
-insert into templates (subject, text) values ('Notification from lemmeknow.tk','Hello, %s!\nPlaceholder text!!!! Your subscription %s!');
+insert into templates (subject, text) values ('Message from lemmeknow.tk','Hello, %s!\nPlaceholder text!!!! Your subscription %s!');

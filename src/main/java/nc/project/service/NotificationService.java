@@ -1,7 +1,7 @@
 package nc.project.service;
 
 import nc.project.NotificationSender.NotificationSender;
-import nc.project.model.Notification;
+import nc.project.model.Message;
 import nc.project.model.Subscription.AreaSubscription;
 import nc.project.model.Subscription.EventSubscription;
 import nc.project.model.Subscription.Subscription;
@@ -22,13 +22,15 @@ public class NotificationService {
 
     private final SubscriptionRepository subscriptionRepository;
     private final UserService userService;
+    private final MessageService messageService;
     private NotificationSender notificationSender = null;
     private Queue<Subscription> subscriptionsToNotify;
 
     @Autowired
-    public NotificationService(SubscriptionRepository subscriptionRepository, UserService userService) {
+    public NotificationService(SubscriptionRepository subscriptionRepository, UserService userService, MessageService messageService) {
         this.subscriptionRepository = subscriptionRepository;
         this.userService = userService;
+        this.messageService = messageService;
         this.subscriptionsToNotify = new PriorityQueue<>();
     }
 
@@ -86,7 +88,7 @@ public class NotificationService {
             Mono<User> m = userService.getUser(sub.getUserId());
             m.subscribe(user -> {
                 notificationSender = userService.getSender(user);
-                notificationSender.send(user, new Notification(user.getName(), sub.getName()));
+                notificationSender.send(user, messageService.createMessage(user.getName(), sub.getName()));
             }, error -> System.err.println(error.getMessage()));
         }
     }

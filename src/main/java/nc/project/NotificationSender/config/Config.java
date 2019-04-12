@@ -1,5 +1,6 @@
 package nc.project.NotificationSender.config;
 
+import org.apache.velocity.app.VelocityEngine;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -9,7 +10,7 @@ import org.springframework.mail.javamail.JavaMailSenderImpl;
 import java.util.Properties;
 
 @Configuration
-public class EmailConfig {
+public class Config {
 
     @Value("${spring.mail.host}")
     private String host;
@@ -36,4 +37,13 @@ public class EmailConfig {
 
         return mailSender;
      }
+    @Bean
+    public VelocityEngine velocityEngine() {
+        Properties properties = new Properties();
+        properties.setProperty("input.encoding", "UTF-8");
+        properties.setProperty("output.encoding", "UTF-8");
+        properties.setProperty("resource.loader", "class");
+        properties.setProperty("class.resource.loader.class", "org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader");
+        return new VelocityEngine(properties);
+    }
 }
