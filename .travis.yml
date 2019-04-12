@@ -8,20 +8,20 @@ notifications:
     on_success: change
 addons:
   ssh_known_hosts:
-    - 142.93.98.12
-    - lemmeknow.tk
+  - 142.93.98.12
+  - lemmeknow.tk
 branches:
   only:
-    - master
+  - master
 env:
   global:
-    - REMOTEAPPDIR=/home/deploy/nc-project
-    - REMOTEUSER=deploy
-    - REMOTEHOST=142.93.98.12
+  - REMOTEAPPDIR=/home/deploy/nc-project
+  - REMOTEUSER=deploy
+  - REMOTEHOST=142.93.98.12
 before_install:
-  - openssl aes-256-cbc -K $encrypted_e80869a16294_key -iv $encrypted_e80869a16294_iv
-    -in deploy.enc -out deploy -d
+- openssl aes-256-cbc -K $encrypted_57d9d1be1112_key -iv $encrypted_57d9d1be1112_iv
+  -in deploy.enc -out deploy -d
 before_script:
-  - chmod 600 deploy && mv deploy ~/.ssh/id_rsa
+- chmod 600 deploy && mv deploy ~/.ssh/id_rsa
 after_success:
-  - "./scripts/deploy.sh"
+- "./scripts/deploy.sh"
