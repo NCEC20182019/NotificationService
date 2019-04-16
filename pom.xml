@@ -74,7 +74,21 @@
             <artifactId>reactor-spring</artifactId>
             <version>1.0.1.RELEASE</version>
         </dependency>
+
+        <!--Security-->
+
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-oauth2-client</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-oauth2-jose</artifactId>
+        </dependency>
     </dependencies>
+
+
+
 
     <build>
         <plugins>

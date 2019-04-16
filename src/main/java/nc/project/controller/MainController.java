@@ -5,9 +5,11 @@ import nc.project.model.dto.SubscriptionDTO;
 import nc.project.model.dto.TriggerDTO;
 import nc.project.repository.SubscriptionRepository;
 import nc.project.service.NotificationService;
+import nc.project.service.UserService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -42,6 +44,14 @@ public class MainController {
         List<Subscription> response = new ArrayList<>();
         subscriptionRepo.findAll().forEach(response::add);
         return response;
+    }
+
+    @Autowired
+    UserService userService;
+
+    @GetMapping("/getUserById/{id}")
+    public String getUser(@PathVariable(value = "id") int id){
+        return userService.getUser(id).block().toString();
     }
 
     @PostMapping("/subscribe")
