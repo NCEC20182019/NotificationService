@@ -18,6 +18,7 @@ import reactor.core.CoreSubscriber;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
+import javax.xml.bind.SchemaOutputResolver;
 import java.util.Base64;
 import java.util.HashMap;
 import java.util.List;
@@ -55,15 +56,25 @@ public class UserService {
 
 //        return Mono.just(user);
 
+        String token;
         //Внизу креды админа
-        String token = tokenService.getToken("dominiqewilkins@gmail.com", "Yfevtyrj1","password");
+        try {
+            token = tokenService.getToken("dominiqewilkins@gmail.com", "Yfevtyrj1","password");
+        } catch (IllegalAccessException e) {
+            System.out.println(e.toString());
+            return null;
+        }
 
-        return WebClient.create().get()
+        Mono<User> user = WebClient.create().get()
                 .uri(serviceUrl + "/user/" + id)
                 .accept(MediaType.APPLICATION_JSON)
-                .header("Authorization", token)
+                .header("Authorization", "Bearer " + token)
                 .retrieve()
                 .bodyToMono(User.class);
+
+        User tmp = user.block();
+
+        return user;
     }
 
     public Flux<User> getUsers(List<Integer> ids){
