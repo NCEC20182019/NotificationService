@@ -1,7 +1,7 @@
 package nc.project.service;
 
 import nc.project.NotificationSender.NotificationSender;
-import nc.project.model.Notification;
+import nc.project.model.Message;
 import nc.project.model.Subscription.AreaSubscription;
 import nc.project.model.Subscription.EventSubscription;
 import nc.project.model.Subscription.Subscription;
@@ -10,7 +10,6 @@ import nc.project.model.User;
 import nc.project.model.dto.SubscriptionDTO;
 import nc.project.model.dto.TriggerDTO;
 import nc.project.repository.SubscriptionRepository;
-import nc.project.repository.TemplateRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
@@ -23,15 +22,15 @@ public class NotificationService {
 
     private final SubscriptionRepository subscriptionRepository;
     private final UserService userService;
-    private final TemplateRepository templateRepository;
+    private final MessageService messageService;
     private NotificationSender notificationSender = null;
     private Queue<Subscription> subscriptionsToNotify;
 
     @Autowired
-    public NotificationService(SubscriptionRepository subscriptionRepository, UserService userService, TemplateRepository templateRepository ) {
+    public NotificationService(SubscriptionRepository subscriptionRepository, UserService userService, MessageService messageService) {
         this.subscriptionRepository = subscriptionRepository;
-        this.templateRepository = templateRepository;
         this.userService = userService;
+        this.messageService = messageService;
         this.subscriptionsToNotify = new PriorityQueue<>();
     }
 
@@ -89,7 +88,7 @@ public class NotificationService {
             User user = userService.getUser(sub.getUserId()).block();
             if(user != null){
                 notificationSender = userService.getSender(user);
-                notificationSender.send(user, new Notification(user.getName(), sub.getName(), templateRepository.getTemplateById(1)));
+                notificationSender.send(user, messageService.createMessage(user.getName(), sub.getName()));
             }
         }
     }

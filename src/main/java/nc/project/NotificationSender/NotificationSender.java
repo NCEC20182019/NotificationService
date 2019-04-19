@@ -1,8 +1,8 @@
 package nc.project.NotificationSender;
 
-import nc.project.model.Notification;
+import nc.project.model.Message;
 import nc.project.model.User;
 
 public interface NotificationSender {
-    void send(User user, Notification notification);
+    void send(User user, Message message);
 }
