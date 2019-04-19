@@ -1,7 +1,7 @@
-package nc.project.model.dto;
+package nc.project.NotificationEngine.model.dto;
 
 import lombok.Data;
-import nc.project.model.enums.SubType;
+import nc.project.NotificationEngine.model.enums.SubType;
 
 @Data
 public class SubscriptionDTO {

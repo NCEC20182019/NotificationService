@@ -1,4 +1,4 @@
-package nc.project.model.dto;
+package nc.project.NotificationEngine.model.dto;
 
 import lombok.Data;
 

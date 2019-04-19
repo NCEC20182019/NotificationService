@@ -12,7 +12,7 @@
             <pattern>%d.{HH:mm.ss.SSS} [%t] %-5level %logger{36} - %msg%n</pattern>
         </encoder>
     </appender>
-    <logger name="nc.project.controller" level="DEBUG" additivity="true">
+    <logger name="nc.project.NotificationEngine.controller" level="DEBUG" additivity="true">
         <appender-ref ref="FILE"/>
     </logger>
 </configuration>

@@ -1,4 +1,4 @@
-package nc.project;
+package nc.project.NotificationEngine;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;

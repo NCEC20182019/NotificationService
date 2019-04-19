@@ -1,7 +1,7 @@
-package nc.project.repository;
+package nc.project.NotificationEngine.repository;
 
-import nc.project.model.Subscription.EventSubscription;
-import nc.project.model.Subscription.Subscription;
+import nc.project.NotificationEngine.model.Subscription.EventSubscription;
+import nc.project.NotificationEngine.model.Subscription.Subscription;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;

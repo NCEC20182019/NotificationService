@@ -1,6 +1,6 @@
-package nc.project.service;
+package nc.project.NotificationEngine.service;
 
-import nc.project.model.Message;
+import nc.project.NotificationEngine.model.Message;
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.VelocityEngine;
 import org.springframework.beans.factory.annotation.Autowired;

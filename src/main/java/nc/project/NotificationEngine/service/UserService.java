@@ -1,28 +1,19 @@
-package nc.project.service;
+package nc.project.NotificationEngine.service;
 
-import com.fasterxml.classmate.GenericType;
 import nc.project.NotificationSender.EmailSender;
 import nc.project.NotificationSender.NotificationSender;
 import nc.project.NotificationSender.PopupSender;
-import nc.project.model.User;
-import nc.project.model.enums.PreferredNotificationChannel;
-import net.minidev.json.JSONObject;
-import org.reactivestreams.Publisher;
+import nc.project.NotificationEngine.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.BodyInserters;
 import org.springframework.web.reactive.function.client.WebClient;
-import reactor.core.CoreSubscriber;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
-import javax.xml.bind.SchemaOutputResolver;
-import java.util.Base64;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Service
 public class UserService {
@@ -35,16 +26,15 @@ public class UserService {
     @Value("${nc.project.security.client-secret}")
     private String clientSecret;
 
-    @Autowired
-    TokenService tokenService;
-
     private final EmailSender emailSender;
     private final PopupSender popupSender;
+    private final TokenService tokenService;
 
     @Autowired
-    public UserService(EmailSender emailSender, PopupSender popupSender) {
+    public UserService(EmailSender emailSender, PopupSender popupSender, TokenService tokenService) {
         this.emailSender = emailSender;
         this.popupSender = popupSender;
+        this.tokenService = tokenService;
     }
 
     public Mono<User> getUser(int id){
@@ -65,16 +55,12 @@ public class UserService {
             return null;
         }
 
-        Mono<User> user = WebClient.create().get()
+        return WebClient.create().get()
                 .uri(serviceUrl + "/user/" + id)
                 .accept(MediaType.APPLICATION_JSON)
                 .header("Authorization", "Bearer " + token)
                 .retrieve()
                 .bodyToMono(User.class);
-
-        User tmp = user.block();
-
-        return user;
     }
 
     public Flux<User> getUsers(List<Integer> ids){
