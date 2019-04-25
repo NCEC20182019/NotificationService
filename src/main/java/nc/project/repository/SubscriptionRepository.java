@@ -2,7 +2,6 @@ package nc.project.repository;
 
 import nc.project.model.Subscription.EventSubscription;
 import nc.project.model.Subscription.Subscription;
-import org.postgresql.geometric.PGpoint;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
@@ -24,4 +23,3 @@ public interface SubscriptionRepository extends CrudRepository<Subscription, Int
 //    @Query("select s.user_id from subscriptions s where s.id = :id and s.user_id = :userId")
 //    List<Integer> findAllByIdAndUserId(@Param("id")int id, @Param("userId")int userId);
 }
-//vscale.io

@@ -29,7 +29,7 @@ public class MainController {
                           NotificationService notificationService) {
         this.subscriptionRepo = subscriptionRepo;
         this.notificationService = notificationService;
-        /*modelMapper.addMappings(new PropertyMap<Notification, NotificationGetDTO>() {
+        /*modelMapper.addMappings(new PropertyMap<Message, NotificationGetDTO>() {
             @Override
             protected void configure() {
                 Set<String> emails = new HashSet<>();
