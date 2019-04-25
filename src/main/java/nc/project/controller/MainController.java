@@ -54,6 +54,8 @@ public class MainController {
         return userService.getUser(id).block().toString();
     }
 
+
+
     @PostMapping("/subscribe")
     public void subscribe(@RequestBody SubscriptionDTO newSubscription){
         notificationService.subscribe(newSubscription);

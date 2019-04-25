@@ -10,7 +10,14 @@ import net.minidev.json.JSONObject;
 import org.reactivestreams.Publisher;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Bean;
 import org.springframework.http.MediaType;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.oauth2.client.registration.ReactiveClientRegistrationRepository;
+import org.springframework.security.oauth2.client.web.reactive.function.client.ServerOAuth2AuthorizedClientExchangeFilterFunction;
+import org.springframework.security.oauth2.client.web.server.UnAuthenticatedServerOAuth2AuthorizedClientRepository;
+import org.springframework.security.oauth2.provider.authentication.OAuth2AuthenticationDetails;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.BodyInserters;
 import org.springframework.web.reactive.function.client.WebClient;
@@ -56,23 +63,32 @@ public class UserService {
 
 //        return Mono.just(user);
 
-        String token;
-        //Внизу креды админа
-        try {
-            token = tokenService.getToken("dominiqewilkins@gmail.com", "Yfevtyrj1","password");
-        } catch (IllegalAccessException e) {
-            System.out.println(e.toString());
-            return null;
+//        String token;
+//        //Внизу креды админа
+//        try {
+//            token = tokenService.getToken("dominiqewilkins@gmail.com", "Yfevtyrj1","password");
+//        } catch (IllegalAccessException e) {
+//            System.out.println(e.toString());
+//            return null;
+//        }
+//
+        Object details = SecurityContextHolder.getContext().getAuthentication().getDetails();
+        String token = "";
+        if (details instanceof OAuth2AuthenticationDetails){
+            OAuth2AuthenticationDetails oAuth2AuthenticationDetails = (OAuth2AuthenticationDetails)details;
+            token = oAuth2AuthenticationDetails.getTokenValue();
         }
+
+        final String ftoken = token;
 
         Mono<User> user = WebClient.create().get()
                 .uri(serviceUrl + "/user/" + id)
                 .accept(MediaType.APPLICATION_JSON)
-                .header("Authorization", "Bearer " + token)
+                .attributes(ServerOAuth2AuthorizedClientExchangeFilterFunction
+                        .clientRegistrationId("notif"))
+                .headers(h -> h.setBearerAuth(ftoken))
                 .retrieve()
                 .bodyToMono(User.class);
-
-        User tmp = user.block();
 
         return user;
     }
