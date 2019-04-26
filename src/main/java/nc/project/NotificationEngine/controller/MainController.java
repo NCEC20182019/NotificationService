@@ -1,11 +1,11 @@
-package nc.project.controller;
+package nc.project.NotificationEngine.controller;
 
-import nc.project.model.Subscription.Subscription;
-import nc.project.model.dto.SubscriptionDTO;
-import nc.project.model.dto.TriggerDTO;
-import nc.project.repository.SubscriptionRepository;
-import nc.project.service.NotificationService;
-import nc.project.service.UserService;
+import nc.project.NotificationEngine.model.Subscription.Subscription;
+import nc.project.NotificationEngine.model.dto.SubscriptionDTO;
+import nc.project.NotificationEngine.model.dto.TriggerDTO;
+import nc.project.NotificationEngine.repository.SubscriptionRepository;
+import nc.project.NotificationEngine.service.NotificationService;
+import nc.project.NotificationEngine.service.UserService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;

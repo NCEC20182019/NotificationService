@@ -1,4 +1,4 @@
-package nc.project.model.enums;
+package nc.project.NotificationEngine.model.enums;
 
 public enum PreferredNotificationChannel {
     EMAIL,

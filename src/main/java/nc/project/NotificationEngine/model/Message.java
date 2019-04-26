@@ -1,4 +1,4 @@
-package nc.project.model;
+package nc.project.NotificationEngine.model;
 
 import lombok.Data;
 

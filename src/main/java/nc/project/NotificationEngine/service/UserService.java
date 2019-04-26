@@ -1,11 +1,11 @@
-package nc.project.service;
+package nc.project.NotificationEngine.service;
 
 import com.fasterxml.classmate.GenericType;
 import nc.project.NotificationSender.EmailSender;
 import nc.project.NotificationSender.NotificationSender;
 import nc.project.NotificationSender.PopupSender;
-import nc.project.model.User;
-import nc.project.model.enums.PreferredNotificationChannel;
+import nc.project.NotificationEngine.model.User;
+import nc.project.NotificationEngine.model.enums.PreferredNotificationChannel;
 import net.minidev.json.JSONObject;
 import org.reactivestreams.Publisher;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,16 +42,15 @@ public class UserService {
     @Value("${nc.project.security.client-secret}")
     private String clientSecret;
 
-    @Autowired
-    TokenService tokenService;
-
     private final EmailSender emailSender;
     private final PopupSender popupSender;
+    private final TokenService tokenService;
 
     @Autowired
-    public UserService(EmailSender emailSender, PopupSender popupSender) {
+    public UserService(EmailSender emailSender, PopupSender popupSender, TokenService tokenService) {
         this.emailSender = emailSender;
         this.popupSender = popupSender;
+        this.tokenService = tokenService;
     }
 
     public Mono<User> getUser(int id){
@@ -81,7 +80,7 @@ public class UserService {
 
         final String ftoken = token;
 
-        Mono<User> user = WebClient.create().get()
+        return WebClient.create().get()
                 .uri(serviceUrl + "/user/" + id)
                 .accept(MediaType.APPLICATION_JSON)
                 .attributes(ServerOAuth2AuthorizedClientExchangeFilterFunction
@@ -89,8 +88,6 @@ public class UserService {
                 .headers(h -> h.setBearerAuth(ftoken))
                 .retrieve()
                 .bodyToMono(User.class);
-
-        return user;
     }
 
     public Flux<User> getUsers(List<Integer> ids){

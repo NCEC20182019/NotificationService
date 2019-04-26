@@ -1,18 +1,16 @@
-package nc.project.service;
+package nc.project.NotificationEngine.service;
 
 import nc.project.NotificationSender.NotificationSender;
-import nc.project.model.Message;
-import nc.project.model.Subscription.AreaSubscription;
-import nc.project.model.Subscription.EventSubscription;
-import nc.project.model.Subscription.Subscription;
-import nc.project.model.Subscription.TypeSubscription;
-import nc.project.model.User;
-import nc.project.model.dto.SubscriptionDTO;
-import nc.project.model.dto.TriggerDTO;
-import nc.project.repository.SubscriptionRepository;
+import nc.project.NotificationEngine.model.Subscription.AreaSubscription;
+import nc.project.NotificationEngine.model.Subscription.EventSubscription;
+import nc.project.NotificationEngine.model.Subscription.Subscription;
+import nc.project.NotificationEngine.model.Subscription.TypeSubscription;
+import nc.project.NotificationEngine.model.User;
+import nc.project.NotificationEngine.model.dto.SubscriptionDTO;
+import nc.project.NotificationEngine.model.dto.TriggerDTO;
+import nc.project.NotificationEngine.repository.SubscriptionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import reactor.core.publisher.Mono;
 
 import java.util.PriorityQueue;
 import java.util.Queue;

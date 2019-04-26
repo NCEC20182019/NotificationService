@@ -1,10 +1,9 @@
-package nc.project.model.Subscription;
+package nc.project.NotificationEngine.model.Subscription;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
-import org.postgresql.geometric.PGcircle;
 
 import javax.persistence.*;
 

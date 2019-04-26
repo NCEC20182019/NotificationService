@@ -1,7 +1,7 @@
 package nc.project.NotificationSender;
 
-import nc.project.model.Message;
-import nc.project.model.User;
+import nc.project.NotificationEngine.model.Message;
+import nc.project.NotificationEngine.model.User;
 import org.springframework.stereotype.Service;
 
 @Service

@@ -1,4 +1,4 @@
-package nc.project.model.Subscription;
+package nc.project.NotificationEngine.model.Subscription;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
