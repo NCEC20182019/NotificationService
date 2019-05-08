@@ -1,21 +1,21 @@
-package nc.project.controller;
+package nc.project.NotificationEngine.controller;
 
-import nc.project.model.Subscription.Subscription;
-import nc.project.model.dto.SubscriptionDTO;
-import nc.project.model.dto.TriggerDTO;
-import nc.project.repository.SubscriptionRepository;
-import nc.project.service.NotificationService;
+import nc.project.NotificationEngine.model.Subscription.Subscription;
+import nc.project.NotificationEngine.model.dto.SubscriptionDTO;
+import nc.project.NotificationEngine.model.dto.TriggerDTO;
+import nc.project.NotificationEngine.repository.SubscriptionRepository;
+import nc.project.NotificationEngine.service.NotificationService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @RestController
+@CrossOrigin
+@RequestMapping(value = "notifications", produces = MediaType.APPLICATION_JSON_VALUE)
 public class MainController {
 
     private final ModelMapper modelMapper = new ModelMapper();
@@ -44,9 +44,21 @@ public class MainController {
         return response;
     }
 
+    @GetMapping("/subscriptions/{id}")
+    public List<Subscription> getSubscriptionsByUserId(@PathVariable int id){
+        List<Subscription> response = new ArrayList<>();
+        subscriptionRepo.findAllByUserId(id).forEach(response::add);
+        return response;
+    }
+
     @PostMapping("/subscribe")
     public void subscribe(@RequestBody SubscriptionDTO newSubscription){
         notificationService.subscribe(newSubscription);
+    }
+
+    @DeleteMapping("/unsubscribe/{id}")
+    public void unsubscribe(@PathVariable int id){
+        notificationService.unsubscribe(id);
     }
 
     @PostMapping("/trigger")

@@ -1,10 +1,9 @@
-package nc.project.service;
+package nc.project.NotificationEngine.service;
 
 import nc.project.NotificationSender.EmailSender;
 import nc.project.NotificationSender.NotificationSender;
 import nc.project.NotificationSender.PopupSender;
-import nc.project.model.User;
-import nc.project.model.enums.PreferredNotificationChannel;
+import nc.project.NotificationEngine.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
@@ -20,6 +19,12 @@ import java.util.List;
 public class UserService {
     @Value("${nc.project.security.url}")
     private String serviceUrl;
+
+    @Value("${nc.project.security.client-id}")
+    private String clientId;
+
+    @Value("${nc.project.security.client-secret}")
+    private String clientSecret;
 
     private final EmailSender emailSender;
     private final PopupSender popupSender;
@@ -39,8 +44,9 @@ public class UserService {
 
 //        return Mono.just(user);
 
+
         return WebClient.create().get()
-                .uri(serviceUrl + "/" + id)
+                .uri(serviceUrl + "/user/" + id)
                 .accept(MediaType.APPLICATION_JSON)
                 .retrieve()
                 .bodyToMono(User.class);

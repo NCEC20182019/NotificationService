@@ -1,7 +1,7 @@
-package nc.project.model.dto;
+package nc.project.NotificationEngine.model.dto;
 
 import lombok.Data;
-import nc.project.model.enums.TriggerFlags;
+import nc.project.NotificationEngine.model.enums.TriggerFlags;
 
 @Data
 public class TriggerDTO {

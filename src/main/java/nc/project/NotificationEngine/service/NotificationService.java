@@ -1,18 +1,16 @@
-package nc.project.service;
+package nc.project.NotificationEngine.service;
 
 import nc.project.NotificationSender.NotificationSender;
-import nc.project.model.Message;
-import nc.project.model.Subscription.AreaSubscription;
-import nc.project.model.Subscription.EventSubscription;
-import nc.project.model.Subscription.Subscription;
-import nc.project.model.Subscription.TypeSubscription;
-import nc.project.model.User;
-import nc.project.model.dto.SubscriptionDTO;
-import nc.project.model.dto.TriggerDTO;
-import nc.project.repository.SubscriptionRepository;
+import nc.project.NotificationEngine.model.Subscription.AreaSubscription;
+import nc.project.NotificationEngine.model.Subscription.EventSubscription;
+import nc.project.NotificationEngine.model.Subscription.Subscription;
+import nc.project.NotificationEngine.model.Subscription.TypeSubscription;
+import nc.project.NotificationEngine.model.User;
+import nc.project.NotificationEngine.model.dto.SubscriptionDTO;
+import nc.project.NotificationEngine.model.dto.TriggerDTO;
+import nc.project.NotificationEngine.repository.SubscriptionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import reactor.core.publisher.Mono;
 
 import java.util.PriorityQueue;
 import java.util.Queue;
@@ -42,7 +40,7 @@ public class NotificationService {
             sub.setName(newSubscription.getName());
             sub.setUserId(newSubscription.getUserId());
             sub.setEnabled(true);
-            //TODO возможно нужно приведение типа присвоить новой переменной потом сохранять
+            // возможно нужно приведение типа присвоить новой переменной потом сохранять
             ((AreaSubscription) sub).setLatitude(newSubscription.getLatitude());
             ((AreaSubscription) sub).setLongitude(newSubscription.getLongitude());
             ((AreaSubscription) sub).setRadius(newSubscription.getRadius());
@@ -91,5 +89,9 @@ public class NotificationService {
                 notificationSender.send(user, messageService.createMessage(user.getName(), sub.getName()));
             }
         }
+    }
+
+    public void unsubscribe(int id) {
+        subscriptionRepository.deleteById(id);
     }
 }

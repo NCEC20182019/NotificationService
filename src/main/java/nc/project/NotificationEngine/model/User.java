@@ -1,7 +1,7 @@
-package nc.project.model;
+package nc.project.NotificationEngine.model;
 
 import lombok.*;
-import nc.project.model.enums.PreferredNotificationChannel;
+import nc.project.NotificationEngine.model.enums.PreferredNotificationChannel;
 
 @Data
 public class User {
