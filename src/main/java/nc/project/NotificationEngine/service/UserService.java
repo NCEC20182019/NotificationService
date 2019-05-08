@@ -20,12 +20,6 @@ public class UserService {
     @Value("${nc.project.security.url}")
     private String serviceUrl;
 
-    @Value("${nc.project.security.client-id}")
-    private String clientId;
-
-    @Value("${nc.project.security.client-secret}")
-    private String clientSecret;
-
     private final EmailSender emailSender;
     private final PopupSender popupSender;
 
