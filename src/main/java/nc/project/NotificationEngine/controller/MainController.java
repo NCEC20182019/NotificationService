@@ -1,7 +1,9 @@
 package nc.project.NotificationEngine.controller;
 
+import nc.project.NotificationEngine.model.Subscription.AreaSubscription;
 import nc.project.NotificationEngine.model.Subscription.Subscription;
 import nc.project.NotificationEngine.model.dto.SubscriptionDTO;
+import nc.project.NotificationEngine.model.dto.ToggleDTO;
 import nc.project.NotificationEngine.model.dto.TriggerDTO;
 import nc.project.NotificationEngine.repository.SubscriptionRepository;
 import nc.project.NotificationEngine.service.NotificationService;
@@ -56,11 +58,21 @@ public class MainController {
         notificationService.subscribe(newSubscription);
     }
 
-    @DeleteMapping("/unsubscribe/{id}")
-    public void unsubscribe(@PathVariable int id){
-        notificationService.unsubscribe(id);
+    @PostMapping("/unsubscribe")
+    public void unsubscribe(@RequestBody int[] ids){
+        notificationService.unsubscribe(ids);
     }
 
+    @PostMapping(value = "/toggle")
+    public void toggleSubscriptions(@RequestBody List<ToggleDTO> toggles){
+        notificationService.toggleSubscription(toggles);
+    }
+
+
+    @PostMapping(value = "/update/areas")
+    public void updateAreas(@RequestBody List<AreaSubscription> newAreaSubs) {
+        notificationService.updateAreaSubscriptions(newAreaSubs);
+    }
     @PostMapping("/trigger")
     public void trigger(@RequestBody TriggerDTO triggerData){
         notificationService.checkSubscriptions(triggerData);
