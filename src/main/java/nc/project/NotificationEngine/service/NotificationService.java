@@ -1,5 +1,6 @@
 package nc.project.NotificationEngine.service;
 
+import nc.project.NotificationEngine.model.dto.ToggleDTO;
 import nc.project.NotificationSender.NotificationSender;
 import nc.project.NotificationEngine.model.Subscription.AreaSubscription;
 import nc.project.NotificationEngine.model.Subscription.EventSubscription;
@@ -11,7 +12,9 @@ import nc.project.NotificationEngine.model.dto.TriggerDTO;
 import nc.project.NotificationEngine.repository.SubscriptionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.PriorityQueue;
 import java.util.Queue;
 
@@ -89,5 +92,19 @@ public class NotificationService {
                 notificationSender.send(user, messageService.createMessage(user.getName(), sub.getName()));
             }
         }
+    }
+
+    @Transactional
+    public void unsubscribe(int[] ids) {
+        subscriptionRepository.deleteByIdIn(ids);
+    }
+
+    @Transactional
+    public void toggleSubscription(List<ToggleDTO> toggles) {
+        toggles.forEach(t -> subscriptionRepository.toggleById(t.isEnable(), t.getSubId()));
+    }
+
+    public void updateAreaSubscriptions(List<AreaSubscription> newAreaSubs) {
+        newAreaSubs.forEach(subscriptionRepository::save);
     }
 }
