@@ -21,12 +21,7 @@ public interface SubscriptionRepository extends CrudRepository<Subscription, Int
     @Query(value = "select s from Subscription s where s.eventId = :id")
     List<EventSubscription> findEventSubscription(@Param("id") int id);
 
+    List<Subscription> findAllByUserId(int id);
+
     void deleteByIdIn(int[] ids);
-
-    @Query(value  = "update Subscription set enabled = :isEnable where id = :id")
-    @Modifying(clearAutomatically = true)
-    void toggleById(@Param("isEnable") boolean isEnable, @Param("id") int id);
-
-//    @Query("select s.user_id from subscriptions s where s.id = :id and s.user_id = :userId")
-//    List<Integer> findAllByIdAndUserId(@Param("id")int id, @Param("userId")int userId);
 }
