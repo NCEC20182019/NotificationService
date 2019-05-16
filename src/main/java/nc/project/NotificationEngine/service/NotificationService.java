@@ -7,7 +7,7 @@ import nc.project.NotificationEngine.repository.SubscriptionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.PriorityQueue;
+import java.util.LinkedList;
 import java.util.Queue;
 
 @Service
@@ -23,7 +23,7 @@ public class NotificationService {
     this.userService = userService;
     this.messageService = messageService;
     this.subscriptionRepository = subscriptionRepository;
-    this.subscriptionsToNotify = new PriorityQueue<>();
+    this.subscriptionsToNotify = new LinkedList<>();
 
   }
 
@@ -44,7 +44,7 @@ public class NotificationService {
   private void notifyUsers() {
     while (!subscriptionsToNotify.isEmpty()) {
       Subscription sub = subscriptionsToNotify.poll();
-      User user = userService.getUser(sub.getUserId()).block();
+      User user = userService.getUser(sub.getUserId());
       if(user != null){
         userService.getSender(user).send(user, messageService.createMessage(user.getName(), sub.getName()));
       }

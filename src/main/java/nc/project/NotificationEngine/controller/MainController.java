@@ -33,7 +33,7 @@ public class MainController {
 
     @GetMapping("/getUserById/{id}")
     public String getUser(@PathVariable(value = "id") int id){
-        return userService.getUser(id).block().toString();
+        return userService.getUser(id).toString();
     }
 
     @GetMapping("/subscriptions/{id}")

@@ -40,7 +40,7 @@ public class UserService {
         this.tokenService = tokenService;
     }
 
-    public Mono<User> getUser(int id){
+    public User getUser(int id){
 //        User user = new User();
 //        user.setId(id);
 //        user.setName("Artem");
@@ -74,16 +74,16 @@ public class UserService {
                         .clientRegistrationId("notif"))
                 .headers(h -> h.setBearerAuth(ftoken))
                 .retrieve()
-                .bodyToMono(User.class);
+                .bodyToMono(User.class).block();
     }
 
-    public Flux<User> getUsers(List<Integer> ids){
+    public User getUsers(List<Integer> ids){
         return WebClient.create().post()
                 .uri(serviceUrl)
                 .contentType(MediaType.APPLICATION_JSON)
                 .body(BodyInserters.fromObject(ids))
                 .retrieve()
-                .bodyToFlux(User.class);
+                .bodyToFlux(User.class).blockFirst();
     }
 
     public NotificationSender getSender(User u){
