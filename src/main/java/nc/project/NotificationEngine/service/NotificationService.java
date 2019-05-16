@@ -34,6 +34,7 @@ public class NotificationService {
                 .findAreaAndTypeSubscriptions(triggerData.getLatitude(), triggerData.getLongitude(), triggerData.getType()));
         break;
       case MODIFY:
+        //TODO продумать действия при изменение адреса!!!
       case DELETE:
         subscriptionsToNotify.addAll(subscriptionRepository.findEventSubscription(triggerData.getEventId()));
         break;

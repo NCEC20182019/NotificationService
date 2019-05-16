@@ -1,35 +1,22 @@
 package nc.project.NotificationEngine.service;
 
-import com.fasterxml.classmate.GenericType;
+import nc.project.NotificationEngine.model.User;
 import nc.project.NotificationSender.EmailSender;
 import nc.project.NotificationSender.NotificationSender;
 import nc.project.NotificationSender.PopupSender;
-import nc.project.NotificationEngine.model.User;
-import nc.project.NotificationEngine.model.enums.PreferredNotificationChannel;
-import net.minidev.json.JSONObject;
-import org.reactivestreams.Publisher;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Bean;
 import org.springframework.http.MediaType;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.oauth2.client.registration.ReactiveClientRegistrationRepository;
 import org.springframework.security.oauth2.client.web.reactive.function.client.ServerOAuth2AuthorizedClientExchangeFilterFunction;
-import org.springframework.security.oauth2.client.web.server.UnAuthenticatedServerOAuth2AuthorizedClientRepository;
 import org.springframework.security.oauth2.provider.authentication.OAuth2AuthenticationDetails;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.BodyInserters;
 import org.springframework.web.reactive.function.client.WebClient;
-import reactor.core.CoreSubscriber;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
-import javax.xml.bind.SchemaOutputResolver;
-import java.util.Base64;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Service
 public class UserService {

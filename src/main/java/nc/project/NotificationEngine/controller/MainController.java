@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = "notifications", produces = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(value = "/notifications", produces = MediaType.APPLICATION_JSON_VALUE)
 public class MainController {
 
     private final ModelMapper modelMapper = new ModelMapper();
