@@ -2,7 +2,7 @@ package nc.project.NotificationEngine.model.enums;
 
 public enum PreferredNotificationChannel {
     EMAIL,
-    POPUP,
+    PUSH,
     SMS,
     NONE
 }

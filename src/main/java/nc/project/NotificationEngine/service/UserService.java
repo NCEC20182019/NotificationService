@@ -3,7 +3,7 @@ package nc.project.NotificationEngine.service;
 import nc.project.NotificationEngine.model.User;
 import nc.project.NotificationSender.EmailSender;
 import nc.project.NotificationSender.NotificationSender;
-import nc.project.NotificationSender.PopupSender;
+import nc.project.NotificationSender.PushSender;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
@@ -13,8 +13,6 @@ import org.springframework.security.oauth2.provider.authentication.OAuth2Authent
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.BodyInserters;
 import org.springframework.web.reactive.function.client.WebClient;
-import reactor.core.publisher.Flux;
-import reactor.core.publisher.Mono;
 
 import java.util.List;
 
@@ -30,13 +28,13 @@ public class UserService {
     private String clientSecret;
 
     private final EmailSender emailSender;
-    private final PopupSender popupSender;
+    private final PushSender pushSender;
     private final TokenService tokenService;
 
     @Autowired
-    public UserService(EmailSender emailSender, PopupSender popupSender, TokenService tokenService) {
+    public UserService(EmailSender emailSender, PushSender pushSender, TokenService tokenService) {
         this.emailSender = emailSender;
-        this.popupSender = popupSender;
+        this.pushSender = pushSender;
         this.tokenService = tokenService;
     }
 
@@ -92,8 +90,8 @@ public class UserService {
             case EMAIL:{
                 return emailSender;
             }
-            case POPUP:{
-                return popupSender;
+            case PUSH:{
+                return pushSender;
             }
 //            case SMS:{
 //                return new SmsSender();
