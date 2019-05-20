@@ -56,7 +56,16 @@ public class SubscriptionService {
         subscriptionRepository.deleteByIdIn(ids);
     }
 
+    @Transactional
+    public void unsubscribe(int userId, int eventId) {
+        subscriptionRepository.deleteEventSubscription(userId, eventId);
+    }
+
     public void unsubscribe(int id) {
         subscriptionRepository.deleteById(id);
+    }
+
+    public boolean checkSubscription(int userId, int eventId) {
+        return subscriptionRepository.findSubscription(userId, eventId) > 0;
     }
 }

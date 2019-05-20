@@ -51,17 +51,28 @@ public class MainController {
         subs.forEach(subscriptionService::subscribeOrUpdate);
     }
 
-    @PostMapping("/unsubscribe")
-    public void unsubscribe(@RequestBody int[] ids){
-        subscriptionService.unsubscribe(ids);
-    }
+//    @PostMapping("/unsubscribe")
+//    public void unsubscribe(@RequestBody int[] ids){
+//        subscriptionService.unsubscribe(ids);
+//    }
 
     @DeleteMapping("/unsubscribe/{id}")
     public void unsubscribe(@PathVariable int id){
         subscriptionService.unsubscribe(id);
     }
+
+    @DeleteMapping("/unsubscribe/{userId}/{eventId}")
+    public void unsubscribe(@PathVariable int userId, @PathVariable int eventId){
+        subscriptionService.unsubscribe(userId, eventId);
+    }
+
     @PostMapping("/trigger")
     public void trigger(@RequestBody TriggerDTO triggerData){
         notificationService.checkSubscriptions(triggerData);
+    }
+
+    @GetMapping("/check/{userId}/{eventId}")
+    public boolean check(@PathVariable int userId, @PathVariable int eventId){
+        return subscriptionService.checkSubscription(userId, eventId);
     }
 }
