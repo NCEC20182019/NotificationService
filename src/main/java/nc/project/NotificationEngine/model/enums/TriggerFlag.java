@@ -1,6 +1,6 @@
 package nc.project.NotificationEngine.model.enums;
 
-public enum TriggerFlags {
+public enum TriggerFlag {
     CREATE,
     DELETE,
     MODIFY

@@ -23,7 +23,7 @@ public class EmailSender implements NotificationSender{
     public void send(User user, Message message){
         SimpleMailMessage mailMessage = new SimpleMailMessage();
 
-        mailMessage.setFrom(username);
+        mailMessage.setFrom("LemmeKnow <"+ username + ">");
         mailMessage.setTo(user.getEmail());
         mailMessage.setSubject(message.getSubject());
         mailMessage.setText(message.getText());

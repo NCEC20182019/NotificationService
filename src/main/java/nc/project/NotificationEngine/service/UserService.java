@@ -75,15 +75,6 @@ public class UserService {
                 .bodyToMono(User.class).block();
     }
 
-    public User getUsers(List<Integer> ids){
-        return WebClient.create().post()
-                .uri(serviceUrl)
-                .contentType(MediaType.APPLICATION_JSON)
-                .body(BodyInserters.fromObject(ids))
-                .retrieve()
-                .bodyToFlux(User.class).blockFirst();
-    }
-
     public NotificationSender getSender(User u){
         //NotificationSender sender = null;
         switch(u.getNotificationChannel()){

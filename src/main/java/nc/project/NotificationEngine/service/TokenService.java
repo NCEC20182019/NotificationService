@@ -14,11 +14,11 @@ public class TokenService {
     @Value("${nc.project.security.url}")
     private String serviceUrl;
 
-    @Value("${nc.project.security.client-id}")
-    private String clientId;
-
-    @Value("${nc.project.security.client-secret}")
-    private String clientSecret;
+//    @Value("${nc.project.security.client-id}")
+//    private String clientId;
+//
+//    @Value("${nc.project.security.client-secret}")
+//    private String clientSecret;
 
     private static final String ACCESS_TOKEN = "access_token";
 
@@ -33,8 +33,9 @@ public class TokenService {
         String URI = serviceUrl + "/oauth/token" + "?" +
                 String.format("%s=%s&%s=%s&%s=%s", "grant_type", grant_type, "username", username, "password", password);
 //        String CONTENT_TYPE = "application/x-www-form-urlencoded";
+        // TODO clientId and clientSecret !!!
         String ENCODING = "Basic " +
-                Base64.getEncoder().encodeToString(String.format("%s:%s", clientId, clientSecret).getBytes());
+                Base64.getEncoder().encodeToString(String.format("%s:%s", "clientId", "clientSecret").getBytes());
 
 //        AtomicReference<String> token = null;
 //        authorization.subscribe(map -> {

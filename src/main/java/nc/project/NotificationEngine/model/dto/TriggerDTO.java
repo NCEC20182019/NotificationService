@@ -1,12 +1,12 @@
 package nc.project.NotificationEngine.model.dto;
 
 import lombok.Data;
-import nc.project.NotificationEngine.model.enums.TriggerFlags;
+import nc.project.NotificationEngine.model.enums.TriggerFlag;
 
 @Data
 public class TriggerDTO {
     private int eventId;
-    private TriggerFlags triggerFlag;
+    private TriggerFlag triggerFlag;
     private String type;
     private double latitude;
     private double longitude;

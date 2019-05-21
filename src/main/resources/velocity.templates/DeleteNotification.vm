@@ -1,0 +1,14 @@
+<html>
+<head>
+    <title>LemmeKnow Notifications</title>
+</head>
+<body>
+
+<p>Привет, <b>${username}</b>!</p>
+
+<p>Интересующее вас событие было удаленно!</p>
+
+<p>Спасибо</p>
+<a href="http://lemmeknow.tk">lemmeknow.tk</a>
+</body>
+</html>
