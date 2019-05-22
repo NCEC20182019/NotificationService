@@ -68,8 +68,8 @@ public class UserService {
         return WebClient.create().get()
                 .uri(serviceUrl + "/user/" + id)
                 .accept(MediaType.APPLICATION_JSON)
-                .attributes(ServerOAuth2AuthorizedClientExchangeFilterFunction
-                        .clientRegistrationId("notif"))
+                //.attributes(ServerOAuth2AuthorizedClientExchangeFilterFunction
+                //        .clientRegistrationId("notif"))
                 .headers(h -> h.setBearerAuth(ftoken))
                 .retrieve()
                 .bodyToMono(User.class).block();
