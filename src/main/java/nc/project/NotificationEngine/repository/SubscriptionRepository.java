@@ -25,11 +25,12 @@ public interface SubscriptionRepository extends CrudRepository<Subscription, Int
 
     void deleteByIdIn(int[] ids);
 
-    @Query(value = "delete from subscription s where s.userId = :userId and s.eventId = :eventId", nativeQuery = true)
+    @Query(value = "delete from subscription s where s.user_id = :userId and s.event_id = :eventId", nativeQuery = true)
     void deleteEventSubscription(@Param("userId") int userId,
                                  @Param("eventId") int eventId);
 
-    @Query(value = "select count(s.*) from subscriptions s where s.userId = :userId and s.eventId = :eventId", nativeQuery = true)
+    @Query(value = "select count(s.*) from subscriptions s where s.user_id = :userId and s.event_id = :eventId", nativeQuery = true)
+//    @Query(value = "select count(s.*) from subscriptions s where s.user_id = :userId and s.event_id = :eventId", native)
     int findSubscription(@Param("userId") int userId,
                          @Param("eventId") int eventId);
 }
