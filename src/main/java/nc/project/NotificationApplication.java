@@ -8,8 +8,8 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @SpringBootApplication(scanBasePackages = "nc.project")
 @EnableSwagger2
 @EnableResourceServer
-public class Application {
+public class NotificationApplication {
     public static void main(String[] args) {
-        SpringApplication.run(Application.class, args);
+        SpringApplication.run(NotificationApplication.class, args);
     }
 }
