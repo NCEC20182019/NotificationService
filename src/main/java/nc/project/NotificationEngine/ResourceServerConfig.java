@@ -17,9 +17,7 @@ public class ResourceServerConfig extends WebSecurityConfigurerAdapter {
                 .httpBasic()
                 .disable()
                 .authorizeRequests()
-                .antMatchers("notifications/**")
-                .authenticated()
                 .anyRequest()
-                .permitAll();
+                .authenticated();
     }
 }
