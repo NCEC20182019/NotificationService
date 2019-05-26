@@ -7,10 +7,10 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.oauth2.config.annotation.web.configuration.ResourceServerConfigurerAdapter;
 
 @Configuration
-public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
+public class ResourceServerConfig extends WebSecurityConfigurerAdapter {
 
     @Override
-    public void configure(HttpSecurity http) throws Exception {
+    protected void configure(HttpSecurity http) throws Exception {
         http
                 .csrf()
                 .disable()
