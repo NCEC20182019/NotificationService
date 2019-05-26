@@ -23,7 +23,7 @@ public class MessageService {
 
     public Message createMessage(User user, Subscription sub, TriggerDTO trigger){
         VelocityContext context = new VelocityContext();
-        context.put("username", user.getName());
+        context.put("username", user.getUsername());
         StringWriter stringWriter = new StringWriter();
 
         switch (trigger.getTriggerFlag()) {

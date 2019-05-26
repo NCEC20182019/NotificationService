@@ -1,6 +1,8 @@
 package nc.project.NotificationSender.config;
 
 import org.apache.velocity.app.VelocityEngine;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -11,6 +13,7 @@ import java.util.Properties;
 
 @Configuration
 public class Config {
+    private static Logger logger = LoggerFactory.getLogger(Config.class);
 
     @Value("${spring.mail.host}")
     private String host;
@@ -26,14 +29,18 @@ public class Config {
     public JavaMailSender getMailSender(){
         JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
 
+        logger.debug("Пытаемся сконфигурировать mailSender..");
+        logger.debug("host {}, username {}, password {}", host, username, password);
         mailSender.setHost(host);
         mailSender.setUsername(username);
         mailSender.setPassword(password);
         mailSender.setPort(port);
+        mailSender.setDefaultEncoding("UTF-8");
 
         Properties properties = mailSender.getJavaMailProperties();
 
         properties.setProperty("mail.transport.protocol",protocol);
+        logger.debug("mailSender успешно сконфигурирован");
 
         return mailSender;
      }
