@@ -73,6 +73,7 @@ public class UserService {
 
     public NotificationSender getSender(User u){
         //NotificationSender sender = null;
+        //TODO fix NPE
         switch(u.getNotificationChannel()){
             case EMAIL:{
                 return emailSender;
