@@ -8,6 +8,8 @@ import nc.project.NotificationEngine.model.dto.SubscriptionDTO;
 import nc.project.NotificationEngine.repository.SubscriptionRepository;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.PropertyMap;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,6 +21,7 @@ public class SubscriptionService {
 
     private final SubscriptionRepository subscriptionRepository;
     private final ModelMapper modelMapper = new ModelMapper();
+    private static Logger logger = LoggerFactory.getLogger(SubscriptionService.class);
 
     @Autowired
     public SubscriptionService(SubscriptionRepository subscriptionRepository) {
@@ -66,6 +69,7 @@ public class SubscriptionService {
     }
 
     public boolean checkSubscription(int userId, int eventId) {
+        logger.debug("[checkSubscription] inputs: userId {}, eventId {}", userId, eventId);
         return subscriptionRepository.findSubscription(userId, eventId) > 0;
     }
 }

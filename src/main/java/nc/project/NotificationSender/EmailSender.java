@@ -36,6 +36,7 @@ public class EmailSender implements NotificationSender{
 
         try {
             mailSender.send(mailMessage);
+            logger.debug("Сообщение отправлено {}", message);
         } catch (Exception e) {
             logger.debug(e.getMessage());
         }

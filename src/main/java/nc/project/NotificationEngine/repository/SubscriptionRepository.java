@@ -13,7 +13,7 @@ import java.util.List;
 @Repository
 public interface SubscriptionRepository extends CrudRepository<Subscription, Integer> {
 
-    @Query(value = "select s.* from subscriptions s where (point(:latitude,:longitude) <@ circle(point(s.latitude,s.longitude),s.radius) or s.type = :type)", nativeQuery = true)
+    @Query(value = "select s.* from subscriptions s where (getDistance(s.latitude, s.longitude, :latitude, :longitude) <= s.radius) or s.type = :type)", nativeQuery = true)
     List<Subscription> findAreaAndTypeSubscriptions(@Param("latitude") double latitude,
                                                     @Param("longitude") double longitude,
                                                     @Param("type") String type);
@@ -25,12 +25,12 @@ public interface SubscriptionRepository extends CrudRepository<Subscription, Int
 
     void deleteByIdIn(int[] ids);
 
-    @Query(value = "delete from subscription s where s.user_id = :userId and s.event_id = :eventId", nativeQuery = true)
+    @Query(value = "delete from subscriptions s where s.user_id = :userId and s.event_id = :eventId", nativeQuery = true)
+    @Modifying
     void deleteEventSubscription(@Param("userId") int userId,
                                  @Param("eventId") int eventId);
 
     @Query(value = "select count(s.*) from subscriptions s where s.user_id = :userId and s.event_id = :eventId", nativeQuery = true)
-//    @Query(value = "select count(s.*) from subscriptions s where s.user_id = :userId and s.event_id = :eventId", native)
     int findSubscription(@Param("userId") int userId,
                          @Param("eventId") int eventId);
 }

@@ -6,7 +6,8 @@ import nc.project.NotificationEngine.model.dto.TriggerDTO;
 import nc.project.NotificationEngine.service.NotificationService;
 import nc.project.NotificationEngine.service.SubscriptionService;
 import nc.project.NotificationEngine.service.UserService;
-import org.modelmapper.ModelMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
@@ -17,9 +18,10 @@ import java.util.List;
 @RequestMapping(value = "/notifications", produces = MediaType.APPLICATION_JSON_VALUE)
 public class MainController {
 
-    private final ModelMapper modelMapper = new ModelMapper();
     private final SubscriptionService subscriptionService;
     private final NotificationService notificationService;
+
+    private static Logger logger = LoggerFactory.getLogger(MainController.class);
 
     @Autowired
     public MainController(SubscriptionService subscriptionService,
@@ -38,16 +40,19 @@ public class MainController {
 
     @GetMapping("/subscriptions/{id}")
     public List<Subscription> getSubscriptionsByUserId(@PathVariable int id){
+        logger.debug("[getSubscriptionByUserId] input {}", id);
         return subscriptionService.findAll(id);
     }
 
     @PostMapping("/subscribe")
     public void subscribe(@RequestBody SubscriptionDTO newSubscription){
+        logger.debug("[subscribe] input {}", newSubscription);
         subscriptionService.subscribeOrUpdate(newSubscription);
     }
 
     @PostMapping("/subscribe-or-update")
     public void subscribeOrUpdate(@RequestBody List<SubscriptionDTO> subs){
+        logger.debug("[subscribeOrUpdate] input {} size {}", subs.getClass().getTypeName(), subs.size());
         subs.forEach(subscriptionService::subscribeOrUpdate);
     }
 
@@ -58,16 +63,19 @@ public class MainController {
 
     @DeleteMapping("/unsubscribe/{id}")
     public void unsubscribe(@PathVariable int id){
+        logger.debug("[unsubscribe] input {}", id);
         subscriptionService.unsubscribe(id);
     }
 
     @DeleteMapping("/unsubscribe/{userId}/{eventId}")
     public void unsubscribe(@PathVariable int userId, @PathVariable int eventId){
+        logger.debug("[unsubscribe] inputs: userId {}, eventId {}", userId, eventId);
         subscriptionService.unsubscribe(userId, eventId);
     }
 
     @PostMapping("/trigger")
     public void trigger(@RequestBody TriggerDTO triggerData){
+        logger.debug("[trigger] input {}", triggerData);
         notificationService.checkSubscriptions(triggerData);
     }
 
