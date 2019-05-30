@@ -34,6 +34,7 @@ public class MessageService {
                         "UTF-8", context, stringWriter);
                 break;
             case MODIFY:
+                // todo type cast rewrite
                 if (user.getId() == sub.getUserId() && ((EventSubscription)sub).getEventId() == trigger.getEventId()) {
                     context.put("content", "Что-то изменилось! Нужно проверить:");
                 } else {

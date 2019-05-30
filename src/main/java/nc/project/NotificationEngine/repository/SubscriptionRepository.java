@@ -13,7 +13,7 @@ import java.util.List;
 @Repository
 public interface SubscriptionRepository extends CrudRepository<Subscription, Integer> {
 
-    @Query(value = "select s.* from subscriptions s where (getDistance(s.latitude, s.longitude, :latitude, :longitude) <= s.radius) or s.type = :type)", nativeQuery = true)
+    @Query(value = "select s.* from subscriptions s where (getDistance(s.latitude, s.longitude, :latitude, :longitude) <= s.radius) or s.type = :type", nativeQuery = true)
     List<Subscription> findAreaAndTypeSubscriptions(@Param("latitude") double latitude,
                                                     @Param("longitude") double longitude,
                                                     @Param("type") String type);
